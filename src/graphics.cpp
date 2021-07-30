@@ -1,4 +1,4 @@
-#include "include/graphics.h"
+#include "../include/graphics.h"
 
 //Start external graphics libraries central to the program, return 0 if all are successfully started
 int initialize_gfx()

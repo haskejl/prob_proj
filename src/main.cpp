@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 
-#include "include/common.h"
-#include "include/graphics.h"
+#include "../include/common.h"
+#include "../include/graphics.h"
 
 int main(int argc, char* args[])
 {

@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -I$(IDIR)
 
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp graphics.cpp
+OBJS = ./src/main.cpp ./src/graphics.cpp
 
 #linker flags
 LINKER_FLAGS = -lSDL2 -lSDL2_ttf
