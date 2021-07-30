@@ -3,7 +3,7 @@
 //Start external graphics libraries central to the program, return 0 if all are successfully started
 int initialize_gfx()
 {
-    std::cout << "Initializing video...\n";
+    printf("Initializing video...\n");
 	int ret_val = SDL_Init(SDL_INIT_VIDEO);
 	if(ret_val < 0)
 	{
@@ -11,7 +11,7 @@ int initialize_gfx()
 		return ret_val;
 	}
 	
-    std::cout << "Initializing TTF...\n";
+    printf("Initializing TTF...\n");
 	if(TTF_Init() < 0)
 	{
 		printf("TTF failed to initialize!: %s\n", TTF_GetError());
