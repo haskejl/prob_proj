@@ -2,10 +2,11 @@
 
 #include "../include/common.h"
 #include "../include/graphics.h"
+#include "../include/distributions.h"
 
 int main(int argc, char* args[])
 {
-	std::cout << "Started...\n";
+	printf("Started...\n");
 	if(initialize_gfx() < 0)
 	{
 		printf("Application Failed to Initalize!");
@@ -19,6 +20,18 @@ int main(int argc, char* args[])
 	bool pause = false;
 	//init_falling_sq_sim();
 	std::string line;
+
+	double std_norm_dist_pdf[1000];
+	gen_norm_dist_pdf(0.f, 1.f, &std_norm_dist_pdf[0]);
+	int loc = 0;
+	for(int i=0; i<100; i++)
+	{
+		for(int j=0; j<10; j++)
+		{
+			printf("%f  ", std_norm_dist_pdf[loc++]);
+		}
+		printf("\n");
+	}
 
 	while(!quit)
 	{
