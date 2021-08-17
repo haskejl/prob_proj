@@ -35,7 +35,7 @@ int main(int argc, char* args[])
 
 	while(!quit)
 	{
-		while(SDL_PollEvent(&event) != NULL)
+		while(SDL_PollEvent(&event))
 		{
 			switch(event.type)
 			{
