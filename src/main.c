@@ -50,6 +50,7 @@ int main(int argc, char* args[])
 		if(!pause)
 		{
 			//do calculations
+			printf("%f\n", gen_norm_dist_rn(0.f,1.f));
 			clear_screen();
 			
 			//send stuff to renderer
