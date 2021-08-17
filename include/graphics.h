@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -6,11 +7,11 @@
 #include "common.h"
 
 //Constants
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 960;
+extern const int SCREEN_WIDTH;
+extern const int SCREEN_HEIGHT;
 
-const SDL_Color white = {255, 255, 255, 255};
-const SDL_Color black = {0, 0, 0, 255};
+extern const SDL_Color white;
+extern const SDL_Color black;
 
 static SDL_Window* window = NULL;
 static SDL_Surface* surface = NULL;
@@ -32,3 +33,5 @@ void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col);
 
 //Draw a filled in rectangle
 void draw_solid_rect(SDL_Rect* rect);
+
+#endif

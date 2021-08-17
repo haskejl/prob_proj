@@ -1,12 +1,12 @@
 IDIR = ./include
-CC = g++
+CC = gcc
 CFLAGS = -I$(IDIR)
 
 #OBJS specifies which files to compile as part of the project
 OBJS = ./src/main.c ./src/graphics.c ./src/distributions.c
 
 #linker flags
-LINKER_FLAGS = -lSDL2 -lSDL2_ttf
+LINKER_FLAGS = -lm -lSDL2 -lSDL2_ttf
 
 #name of the executable
 OBJ_NAME = program

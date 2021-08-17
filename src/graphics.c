@@ -1,5 +1,12 @@
 #include "../include/graphics.h"
 
+//assign constants values
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 960;
+
+const SDL_Color white = {255, 255, 255, 255};
+const SDL_Color black = {0, 0, 0, 255};
+
 //Start external graphics libraries central to the program, return 0 if all are successfully started
 int initialize_gfx()
 {
