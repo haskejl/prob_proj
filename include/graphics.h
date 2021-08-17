@@ -28,7 +28,7 @@ void display_renderer();
 void shutdown_gfx();
 
 //Draw text using the TTF_RenderUTF8_Solid method
-void draw_solid_text(std::string* str, SDL_Rect* rect, const SDL_Color* col);
+void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col);
 
 //Draw a filled in rectangle
 void draw_solid_rect(SDL_Rect* rect);

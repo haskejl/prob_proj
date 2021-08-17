@@ -19,7 +19,6 @@ int main(int argc, char* args[])
 	bool quit = false;
 	bool pause = false;
 	//init_falling_sq_sim();
-	std::string line;
 
 	double std_norm_dist_pdf[1000];
 	gen_norm_dist_pdf(0.f, 1.f, &std_norm_dist_pdf[0]);

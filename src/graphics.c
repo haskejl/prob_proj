@@ -71,9 +71,9 @@ void shutdown_gfx()
 }
 
 //Draw text using the TTF_RenderUTF8_Solid method
-void draw_solid_text(std::string* str, SDL_Rect* rect, const SDL_Color* col)
+void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col)
 {
-	surface = TTF_RenderUTF8_Solid(font, str->c_str(), *col);
+	surface = TTF_RenderUTF8_Solid(font, str, *col);
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_QueryTexture(texture, NULL, NULL, &rect->w, &rect->h);
 	SDL_RenderCopy(renderer, texture, NULL, rect);
