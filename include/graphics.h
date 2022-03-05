@@ -34,4 +34,7 @@ void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col);
 //Draw a filled in rectangle
 void draw_solid_rect(SDL_Rect* rect);
 
+//Draw a point with size 5px x 5px
+void draw_point(int x, int y);
+
 #endif

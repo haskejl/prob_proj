@@ -94,3 +94,16 @@ void draw_solid_rect(SDL_Rect* rect)
 	SDL_RenderDrawRect(renderer, rect);
 	SDL_RenderFillRect(renderer, rect);
 }
+
+// Draw a point
+// void draw_point(int x, int y);
+void draw_point(int x, int y) {
+	SDL_Rect pt;
+	pt.x = x;
+	pt.y = y;
+	pt.w = 5;
+	pt.h = 5;
+
+	SDL_RenderDrawRect(renderer, &pt);
+	SDL_RenderFillRect(renderer, &pt);
+}
