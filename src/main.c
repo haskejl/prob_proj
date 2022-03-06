@@ -18,8 +18,20 @@ int main(int argc, char* args[])
 
 	bool quit = false;
 	bool pause = false;
-	//init_falling_sq_sim();
 
+	// Setup the graph
+	struct Graph graph;
+	graph.x_max = 5;
+	graph.x_min = -5;
+	graph.y_max = 0.5;
+	graph.y_min = -0.1;
+	graph.x_pos = 100;
+	graph.y_pos = 100;
+	graph.width = 400;
+	graph.height = 400;
+	recalc_graph_params(&graph);
+
+	// Make something to graph
 	float std_norm_dist_pdf[500];
 	float pdf_x[500];
 	gen_norm_dist_pdf(0.f, 1.f, -5, 5, 500, &std_norm_dist_pdf[0]);
@@ -50,7 +62,7 @@ int main(int argc, char* args[])
 			clear_screen();
 			
 			//send stuff to renderer
-			draw_graph(-5, 5, -0.1, 0.5, 400, 400, 10, 10, &pdf_x[0], &std_norm_dist_pdf[0], 500);
+			draw_graph(graph, &pdf_x[0], &std_norm_dist_pdf[0], 500);
 			display_renderer();
 		}
 		else SDL_Delay(100);

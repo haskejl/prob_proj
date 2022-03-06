@@ -5,7 +5,11 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "common.h"
-
+//Structs
+struct Graph{
+    float x_min, x_max, y_min, y_max, x_offset, y_offset, x_scale, y_scale;
+    int x_pos, y_pos, width, height;
+};
 //Constants
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
@@ -38,6 +42,8 @@ void draw_solid_rect(SDL_Rect* rect);
 void draw_point(int x, int y, int size);
 
 // Graph an object, assumes x_min and y_min are negative
-void draw_graph(float x_min, float x_max, float y_min, float y_max, int height, int width, int x_pos, int y_pos, float* x_vals, float* y_vals, int n_vals);
+void draw_graph(struct Graph g, float* x_vals, float* y_vals, int n_vals);
+
+void recalc_graph_params(struct Graph* g);
 
 #endif

@@ -109,23 +109,26 @@ void draw_point(int x, int y, int size) {
 }
 
 // Graph an object, assumes x_min and y_min are negative
-void draw_graph(float x_min, float x_max, float y_min, float y_max, int height, int width, int x_pos, int y_pos, float* x_vals, float* y_vals, int n_vals) {
-	// Scale offsets for axis
-	int x_offset = x_pos+(int)(x_min/(x_min-x_max)*width);
-	int y_offset = y_pos+height-(int)(y_min/(y_min-y_max)*height);
-	float x_scale = (float)(x_max-x_min)/width;
-	float y_scale = (float)(y_max-y_min)/height;
+void draw_graph(struct Graph g, float* x_vals, float* y_vals, int n_vals) {
+	
 	SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
 	// X-axis
-	SDL_RenderDrawLine(renderer, x_pos, y_offset, x_pos+width, y_offset);
+	SDL_RenderDrawLine(renderer, g.x_pos, g.y_offset, g.x_pos+g.width, g.y_offset);
 	// Y-axis
-	SDL_RenderDrawLine(renderer, x_offset, y_pos, x_offset, y_pos+height);
+	SDL_RenderDrawLine(renderer, g.x_offset, g.y_pos, g.x_offset, g.y_pos+g.height);
 	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
 	for(int i=0; i<n_vals; i++) {
-		int x = (int)(x_offset+x_vals[i]/x_scale);
-		int y = (int)(y_offset-y_vals[i]/y_scale);
+		int x = (int)(g.x_offset+x_vals[i]/g.x_scale);
+		int y = (int)(g.y_offset-y_vals[i]/g.y_scale);
 		draw_point(x, y, 1);
 	}
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+}
+
+void recalc_graph_params(struct Graph* g) {
+	g->x_offset = g->x_pos+(int)(g->x_min/(g->x_min-g->x_max)*g->width);
+	g->y_offset = g->y_pos+g->height-(int)(g->y_min/(g->y_min-g->y_max)*g->height);
+	g->x_scale = (float)(g->x_max-g->x_min)/g->width;
+	g->y_scale = (float)(g->y_max-g->y_min)/g->height;
 }
