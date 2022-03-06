@@ -7,8 +7,8 @@
 
 #include "common.h"
 
-void gen_norm_dist_pdf(double mean, double sd, int min, int max, int n_vals, double* results);
+void gen_norm_dist_pdf(float mean, float sd, int min, int max, int n_vals, float* results);
 
-double gen_norm_dist_rn(double mean, double sd);
+float gen_norm_dist_rn(float mean, float sd);
 
 #endif

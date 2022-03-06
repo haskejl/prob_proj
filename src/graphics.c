@@ -97,13 +97,35 @@ void draw_solid_rect(SDL_Rect* rect)
 
 // Draw a point
 // void draw_point(int x, int y);
-void draw_point(int x, int y) {
+void draw_point(int x, int y, int size) {
 	SDL_Rect pt;
 	pt.x = x;
 	pt.y = y;
-	pt.w = 5;
-	pt.h = 5;
+	pt.w = size;
+	pt.h = size;
 
 	SDL_RenderDrawRect(renderer, &pt);
 	SDL_RenderFillRect(renderer, &pt);
+}
+
+// Graph an object, assumes x_min and y_min are negative
+void draw_graph(float x_min, float x_max, float y_min, float y_max, int height, int width, int x_pos, int y_pos, float* x_vals, float* y_vals, int n_vals) {
+	// Scale offsets for axis
+	int x_offset = x_pos+(int)(x_min/(x_min-x_max)*width);
+	int y_offset = y_pos+height-(int)(y_min/(y_min-y_max)*height);
+	float x_scale = (float)(x_max-x_min)/width;
+	float y_scale = (float)(y_max-y_min)/height;
+	SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
+	// X-axis
+	SDL_RenderDrawLine(renderer, x_pos, y_offset, x_pos+width, y_offset);
+	// Y-axis
+	SDL_RenderDrawLine(renderer, x_offset, y_pos, x_offset, y_pos+height);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+	for(int i=0; i<n_vals; i++) {
+		int x = (int)(x_offset+x_vals[i]/x_scale);
+		int y = (int)(y_offset-y_vals[i]/y_scale);
+		draw_point(x, y, 1);
+	}
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 }

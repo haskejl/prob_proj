@@ -20,16 +20,12 @@ int main(int argc, char* args[])
 	bool pause = false;
 	//init_falling_sq_sim();
 
-	double std_norm_dist_pdf[100];
-	gen_norm_dist_pdf(0.f, 1.f, -5, 5, 100, &std_norm_dist_pdf[0]);
-	int loc = 0;
-	for(int i=0; i<10; i++)
-	{
-		for(int j=0; j<10; j++)
-		{
-			printf("%f  ", std_norm_dist_pdf[loc++]);
-		}
-		printf("\n");
+	float std_norm_dist_pdf[500];
+	float pdf_x[500];
+	gen_norm_dist_pdf(0.f, 1.f, -5, 5, 500, &std_norm_dist_pdf[0]);
+	float inc = 10.f/500.f;
+	for(int i=0; i<500; i++) {
+		pdf_x[i] = i*inc-5;
 	}
 
 	while(!quit)
@@ -54,10 +50,7 @@ int main(int argc, char* args[])
 			clear_screen();
 			
 			//send stuff to renderer
-			for(int i=0; i<100; i++) {
-				draw_point(10+i*5, 960-(300+std_norm_dist_pdf[i]*1000));
-			}
-			
+			draw_graph(-5, 5, -0.1, 0.5, 400, 400, 10, 10, &pdf_x[0], &std_norm_dist_pdf[0], 500);
 			display_renderer();
 		}
 		else SDL_Delay(100);

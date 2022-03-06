@@ -34,7 +34,10 @@ void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col);
 //Draw a filled in rectangle
 void draw_solid_rect(SDL_Rect* rect);
 
-//Draw a point with size 5px x 5px
-void draw_point(int x, int y);
+//Draw a point
+void draw_point(int x, int y, int size);
+
+// Graph an object, assumes x_min and y_min are negative
+void draw_graph(float x_min, float x_max, float y_min, float y_max, int height, int width, int x_pos, int y_pos, float* x_vals, float* y_vals, int n_vals);
 
 #endif
