@@ -6,7 +6,7 @@
 
 #include "common.h"
 //Structs
-struct Graph{
+struct Graph {
     float x_min, x_max, y_min, y_max, x_offset, y_offset, x_scale, y_scale;
     int x_pos, y_pos, width, height;
 };

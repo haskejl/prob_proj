@@ -2,6 +2,7 @@
 
 #include "../include/common.h"
 #include "../include/graphics.h"
+#include "../include/math_internal.h"
 #include "../include/distributions.h"
 
 int main(int argc, char* args[])
@@ -39,11 +40,9 @@ int main(int argc, char* args[])
 	// Make something to graph
 	float std_norm_dist_pdf[500];
 	float pdf_x[500];
+	unsigned int n = 500;
 	gen_norm_dist_pdf(0.f, 1.f, -5, 5, 500, &std_norm_dist_pdf[0]);
-	float inc = 10.f/500.f;
-	for(int i=0; i<500; i++) {
-		pdf_x[i] = i*inc-5;
-	}
+	gen_evenly_spaced_array(n, -5, 5, &pdf_x[0]);
 
 	while(!quit)
 	{
