@@ -89,38 +89,45 @@ void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col)
 }
 
 //Draw a filled in rectangle
-void draw_solid_rect(SDL_Rect* rect)
+void draw_solid_rect(SDL_Rect* rect, int r, int g, int b, int a)
 {
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_RenderDrawRect(renderer, rect);
 	SDL_RenderFillRect(renderer, rect);
 }
 
 // Draw a point
 // void draw_point(int x, int y);
-void draw_point(int x, int y, int size) {
+void draw_point(int x, int y, int size, int r, int g, int b, int a) {
 	SDL_Rect pt;
 	pt.x = x;
 	pt.y = y;
 	pt.w = size;
 	pt.h = size;
 
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_RenderDrawRect(renderer, &pt);
 	SDL_RenderFillRect(renderer, &pt);
 }
 
 // Graph an object, assumes x_min and y_min are negative
 void draw_graph(struct Graph g, float* x_vals, float* y_vals, int n_vals) {
-	
+	SDL_SetRenderDrawColor(renderer, 50, 50, 50, 50);
+	SDL_Rect r;
+	r.x = g.x_pos;
+	r.y = g.y_pos;
+	r.w = g.width;
+	r.h = g.height;
+	draw_solid_rect(&r, 50, 50, 50, 50);
 	SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
 	// X-axis
 	SDL_RenderDrawLine(renderer, g.x_pos, g.y_offset, g.x_pos+g.width, g.y_offset);
 	// Y-axis
 	SDL_RenderDrawLine(renderer, g.x_offset, g.y_pos, g.x_offset, g.y_pos+g.height);
-	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
 	for(int i=0; i<n_vals; i++) {
 		int x = (int)(g.x_offset+x_vals[i]/g.x_scale);
 		int y = (int)(g.y_offset-y_vals[i]/g.y_scale);
-		draw_point(x, y, 1);
+		draw_point(x, y, 1, 255, 0, 255, 255);
 	}
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);

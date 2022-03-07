@@ -18,6 +18,11 @@ int main(int argc, char* args[])
 
 	bool quit = false;
 	bool pause = false;
+	bool mouse_down = false;
+	int mouse_x;
+	int mouse_y;
+	int mouse_last_x;
+	int mouse_last_y;
 
 	// Setup the graph
 	struct Graph graph;
@@ -50,14 +55,47 @@ int main(int argc, char* args[])
 					quit = true;
 					break;
 				case SDL_KEYDOWN:
-					if(event.key.keysym.scancode == SDL_SCANCODE_P)
-						pause = !pause;
+					switch(event.key.keysym.scancode) {
+						case SDL_SCANCODE_P:
+							pause = !pause;
+							break;
+					}
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					switch(event.button.button) {
+						case SDL_BUTTON_LEFT:
+							mouse_down = true;
+							mouse_last_x = event.button.x;
+							mouse_last_y = event.button.y;
+							break;
+					}
+					break;
+				case SDL_MOUSEBUTTONUP:
+					switch(event.button.button) {
+						case SDL_BUTTON_LEFT:
+							mouse_down = false;
+							break;
+					}
+					break;
+				case SDL_MOUSEMOTION:
+					mouse_x = event.motion.x;
+					mouse_y = event.motion.y;
+					break;
 			}
 		}
 
 		if(!pause)
 		{
 			//do calculations
+			if(mouse_down) {
+				if(mouse_x >= graph.x_pos && mouse_x <= graph.x_pos + graph.width && mouse_y >= graph.y_pos & mouse_y <= graph.y_pos + graph.height) {
+					graph.x_pos += mouse_x - mouse_last_x;
+					graph.y_pos += mouse_y - mouse_last_y;
+					recalc_graph_params(&graph);
+					mouse_last_x = mouse_x;
+					mouse_last_y = mouse_y;
+				}
+			}
 			//printf("%f\n", gen_norm_dist_rn(0.f,1.f));
 			clear_screen();
 			

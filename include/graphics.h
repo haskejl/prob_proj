@@ -36,10 +36,10 @@ void shutdown_gfx();
 void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col);
 
 //Draw a filled in rectangle
-void draw_solid_rect(SDL_Rect* rect);
+void draw_solid_rect(SDL_Rect* rect, int r, int g, int b, int a);
 
 //Draw a point
-void draw_point(int x, int y, int size);
+void draw_point(int x, int y, int size, int r, int g, int b, int a);
 
 // Graph an object, assumes x_min and y_min are negative
 void draw_graph(struct Graph g, float* x_vals, float* y_vals, int n_vals);
