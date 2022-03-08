@@ -9,6 +9,6 @@
 #include "distributions.h"
 #include "math_internal.h"
 
-void gen_brownian_motion(const float mu, const float C, const unsigned int n, float* t, float* results);
+void gen_rand_walk(const float mu, const float C, const unsigned int n, float* t, float* results);
 
 #endif

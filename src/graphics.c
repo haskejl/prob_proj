@@ -133,6 +133,34 @@ void draw_graph(const struct Graph g, const float* x_vals, const float* y_vals, 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 }
 
+// Graph an object, assumes x_min and y_min are negative
+void draw_line_graph(const struct Graph g, const float* x_vals, const float* y_vals, const int n_vals) {
+	SDL_SetRenderDrawColor(renderer, 50, 50, 50, 50);
+	SDL_Rect r;
+	r.x = g.x_pos;
+	r.y = g.y_pos;
+	r.w = g.width;
+	r.h = g.height;
+	draw_solid_rect(&r, 50, 50, 50, 50);
+	SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
+	// X-axis
+	SDL_RenderDrawLine(renderer, g.x_pos, g.y_offset, g.x_pos+g.width, g.y_offset);
+	// Y-axis
+	SDL_RenderDrawLine(renderer, g.x_offset, g.y_pos, g.x_offset, g.y_pos+g.height);
+	int x_last = (int)(g.x_offset+x_vals[0]/g.x_scale);
+	int y_last = (int)(g.y_offset-y_vals[0]/g.y_scale);
+	for(int i=1; i<n_vals; i++) {
+		int x = (int)(g.x_offset+x_vals[i]/g.x_scale);
+		int y = (int)(g.y_offset-y_vals[i]/g.y_scale);
+		SDL_SetRenderDrawColor(renderer, 200, 0, 200, y%255);
+		SDL_RenderDrawLine(renderer, x, y, x_last, y_last);
+		x_last = x;
+		y_last = y;
+	}
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+}
+
 void recalc_graph_params(struct Graph* g) {
 	g->x_offset = g->x_pos+(int)(g->x_min/(g->x_min-g->x_max)*g->width);
 	g->y_offset = g->y_pos+g->height-(int)(g->y_min/(g->y_min-g->y_max)*g->height);

@@ -43,6 +43,7 @@ void draw_point(const int x, const int y, const int size, const int r, const int
 
 // Graph an object, assumes x_min and y_min are negative
 void draw_graph(const struct Graph g, const float* x_vals, const float* y_vals, const int n_vals);
+void draw_line_graph(const struct Graph g, const float* x_vals, const float* y_vals, const int n_vals);
 
 void recalc_graph_params(struct Graph* g);
 
