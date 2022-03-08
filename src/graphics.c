@@ -78,7 +78,7 @@ void shutdown_gfx()
 }
 
 //Draw text using the TTF_RenderUTF8_Solid method
-void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col)
+void draw_solid_text(const char* str, SDL_Rect* rect, const SDL_Color* col)
 {
 	surface = TTF_RenderUTF8_Solid(font, str, *col);
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -89,7 +89,7 @@ void draw_solid_text(char* str, SDL_Rect* rect, const SDL_Color* col)
 }
 
 //Draw a filled in rectangle
-void draw_solid_rect(SDL_Rect* rect, int r, int g, int b, int a)
+void draw_solid_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
 {
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_RenderDrawRect(renderer, rect);
@@ -98,7 +98,7 @@ void draw_solid_rect(SDL_Rect* rect, int r, int g, int b, int a)
 
 // Draw a point
 // void draw_point(int x, int y);
-void draw_point(int x, int y, int size, int r, int g, int b, int a) {
+void draw_point(const int x, const int y, const int size, const int r, const int g, const int b, const int a) {
 	SDL_Rect pt;
 	pt.x = x;
 	pt.y = y;
@@ -111,7 +111,7 @@ void draw_point(int x, int y, int size, int r, int g, int b, int a) {
 }
 
 // Graph an object, assumes x_min and y_min are negative
-void draw_graph(struct Graph g, float* x_vals, float* y_vals, int n_vals) {
+void draw_graph(const struct Graph g, const float* x_vals, const float* y_vals, const int n_vals) {
 	SDL_SetRenderDrawColor(renderer, 50, 50, 50, 50);
 	SDL_Rect r;
 	r.x = g.x_pos;

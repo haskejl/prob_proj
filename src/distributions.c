@@ -1,6 +1,6 @@
 #include "../include/distributions.h"
 
-void gen_norm_dist_pdf(float mean, float sd, int min, int max, int n_vals, float* results)
+void gen_norm_dist_pdf(const float mean, const float sd, const int min, const int max, const int n_vals, float* results)
 {
     float step_size = (float)(max-min)/n_vals;
     float curr_step = min;
@@ -12,7 +12,7 @@ void gen_norm_dist_pdf(float mean, float sd, int min, int max, int n_vals, float
     }
 }
 
-float gen_norm_dist_rn(float mean, float sd)
+float gen_norm_dist_rn(const float mean, const float sd)
 {
     static bool haveSpare = false;
     static float spare;
