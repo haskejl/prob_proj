@@ -1,9 +1,10 @@
 #include <SDL2/SDL.h>
 
 #include "../include/common.h"
+#include "../include/distributions.h"
 #include "../include/graphics.h"
 #include "../include/math_internal.h"
-#include "../include/distributions.h"
+#include "../include/math_models.h"
 
 int main(int argc, char* args[])
 {
@@ -27,22 +28,28 @@ int main(int argc, char* args[])
 
 	// Setup the graph
 	struct Graph graph;
-	graph.x_max = 5;
-	graph.x_min = -5;
-	graph.y_max = 0.5;
-	graph.y_min = -0.1;
+	graph.x_max = 50;
+	graph.x_min = -1;
+	graph.y_max = 10;
+	graph.y_min = -10;
 	graph.x_pos = 100;
 	graph.y_pos = 100;
-	graph.width = 400;
-	graph.height = 400;
+	graph.width = 800;
+	graph.height = 500;
 	recalc_graph_params(&graph);
 
 	// Make something to graph
-	float std_norm_dist_pdf[500];
-	float pdf_x[500];
-	unsigned int n = 500;
-	gen_norm_dist_pdf(0.f, 1.f, -5, 5, 500, &std_norm_dist_pdf[0]);
-	gen_evenly_spaced_array(n, -5, 5, &pdf_x[0]);
+	const unsigned int n = 50;
+	float random_walk[n];
+	float t[n];
+	unsigned int cur_pos = 0;
+	float C = 1;
+	float mu = 0.1;
+	gen_evenly_spaced_array(0, 50, n, &t[0]);
+	gen_brownian_motion(mu, C, n, &t[0], &random_walk[0]);
+	for(int i=0; i<n; i++) {
+		printf("%f\n", random_walk[i]);
+	}
 
 	while(!quit)
 	{
@@ -95,11 +102,16 @@ int main(int argc, char* args[])
 					mouse_last_y = mouse_y;
 				}
 			}
+
+			/*if(cur_pos++ >= n){
+				gen_brownian_motion(mu, C, n, &t[0], &random_walk[0]);
+				cur_pos=0;
+			}*/
 			//printf("%f\n", gen_norm_dist_rn(0.f,1.f));
 			clear_screen();
 			
 			//send stuff to renderer
-			draw_graph(graph, &pdf_x[0], &std_norm_dist_pdf[0], 500);
+			draw_graph(graph, &t[0], &random_walk[0], n);
 			display_renderer();
 		}
 		else SDL_Delay(100);
