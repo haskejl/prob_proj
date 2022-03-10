@@ -10,5 +10,6 @@
 #include "math_internal.h"
 
 void gen_rand_walk(const float mu, const float C, const unsigned int n, float* t, float* results);
+void gen_bs_process(const float s0, const float mu, const float sigma, const unsigned int n, float* t, float*results);
 
 #endif

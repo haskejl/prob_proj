@@ -38,8 +38,8 @@ int main(int argc, char* args[])
 	struct Graph graph;
 	graph.x_max = 50;
 	graph.x_min = -1;
-	graph.y_max = 10;
-	graph.y_min = -10;
+	graph.y_max = 60;
+	graph.y_min = -1;
 	graph.x_pos = 100;
 	graph.y_pos = 100;
 	graph.width = 800;
@@ -52,10 +52,11 @@ int main(int argc, char* args[])
 	float t[n];
 	unsigned int cur_pos = 0;
 	int wait = 3;
-	float C = 1;
+	float C = 0.1;
 	float mu = 0.1;
 	gen_evenly_spaced_array(0, 50, n, &t[0]);
-	gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
+	//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
+	gen_bs_process(20.f, mu, C, n, &t[0], &random_walk[0]);
 
 	while(!quit)
 	{
@@ -69,19 +70,19 @@ int main(int argc, char* args[])
 				case SDL_KEYDOWN:
 					switch(event.key.keysym.scancode) {
 						case SDL_SCANCODE_A:
-							mu -= 0.01;
+							mu -= 0.001;
 							break;
 						case SDL_SCANCODE_P:
 							pause = !pause;
 							break;
 						case SDL_SCANCODE_S:
-							C -= 0.01;
+							C -= 0.001;
 							break;
 						case SDL_SCANCODE_Q:
-							mu += 0.01;
+							mu += 0.001;
 							break;
 						case SDL_SCANCODE_W:
-							C += 0.01;
+							C += 0.001;
 							break;
 					}
 					break;
@@ -123,7 +124,8 @@ int main(int argc, char* args[])
 			if(wait-- <= 0) {
 				wait = 3;
 				if(cur_pos++ >= n && wait){
-					gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
+					//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
+					gen_bs_process(20.f, mu, C, n, &t[0], &random_walk[0]);
 					cur_pos=0;
 				}
 			}

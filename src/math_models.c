@@ -8,3 +8,13 @@ void gen_rand_walk(const float mu, const float C, const unsigned int n, float* t
         results[i] = mu*t[i] + gen_norm_dist_rn(0, sd);
     }
 }
+
+void gen_bs_process(const float s0, const float mu, const float sigma, const unsigned int n, float* t, float*results) {
+    // Assume t is evenly spaced
+    float sd = sqrt(t[1]-t[0]);
+    float dt = t[1]-t[0];
+    results[0] = s0;
+    for(int i=1; i<n; i++) {
+        results[i] = results[i-1]*(1 + mu*dt+sigma*gen_norm_dist_rn(0, sd));
+    }
+}
