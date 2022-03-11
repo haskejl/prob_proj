@@ -47,7 +47,9 @@ int initialize_gfx()
         return -1;
     }
 
-	font = TTF_OpenFont("./fonts/PlayfairDisplayRegular.ttf", 24);
+	// TODO: more sizes and automatically detect fonts
+	//font = TTF_OpenFont("./fonts/PlayfairDisplayRegular.ttf", 24);
+	font = TTF_OpenFont("/usr/share/fonts/gnu-free/FreeMono.otf", 24);
 	if(font == NULL)
     {
         printf("ERROR: Could not load font!");

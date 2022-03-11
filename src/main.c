@@ -8,6 +8,7 @@
 
 int main(int argc, char* args[])
 {
+	system("clear");
 	printf("Started...\n");
 	if(initialize_gfx() < 0)
 	{
@@ -26,14 +27,6 @@ int main(int argc, char* args[])
 	int mouse_last_x;
 	int mouse_last_y;
 
-	// A rectangle & char array for drawing text
-	SDL_Rect rect;
-	rect.x = 100;
-	rect.y = 100;
-	rect.w = 200;
-	rect.h = 25;
-	char c[50];
-
 	// Setup the graph
 	struct Graph graph;
 	graph.x_max = 50;
@@ -46,17 +39,26 @@ int main(int argc, char* args[])
 	graph.height = 500;
 	recalc_graph_params(&graph);
 
+	// A rectangle & char array for drawing text on the graph
+	SDL_Rect rect;
+	rect.x = graph.x_pos + 10;
+	rect.y = graph.y_pos + 10;
+	rect.w = 200;
+	rect.h = 25;
+	char c[50];
+
 	// Make something to graph
 	const unsigned int n = 100;
 	float random_walk[n];
+	float bs_process[n];
 	float t[n];
 	unsigned int cur_pos = 0;
 	int wait = 3;
-	float C = 0.1;
-	float mu = 0.1;
+	float sigma = 0.01;
+	float mu = 0.01;
 	gen_evenly_spaced_array(0, 50, n, &t[0]);
 	//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
-	gen_bs_process(20.f, mu, C, n, &t[0], &random_walk[0]);
+	gen_bs_process(20.f, mu, sigma, n, &t[0], &bs_process[0]);
 
 	while(!quit)
 	{
@@ -76,13 +78,13 @@ int main(int argc, char* args[])
 							pause = !pause;
 							break;
 						case SDL_SCANCODE_S:
-							C -= 0.001;
+							sigma -= 0.001;
 							break;
 						case SDL_SCANCODE_Q:
 							mu += 0.001;
 							break;
 						case SDL_SCANCODE_W:
-							C += 0.001;
+							sigma += 0.001;
 							break;
 					}
 					break;
@@ -116,6 +118,7 @@ int main(int argc, char* args[])
 				if(mouse_x >= graph.x_pos && mouse_x <= graph.x_pos + graph.width && mouse_y >= graph.y_pos & mouse_y <= graph.y_pos + graph.height) {
 					graph.x_pos += mouse_x - mouse_last_x;
 					graph.y_pos += mouse_y - mouse_last_y;
+					rect.x = graph.x_pos+10;
 					recalc_graph_params(&graph);
 					mouse_last_x = mouse_x;
 					mouse_last_y = mouse_y;
@@ -125,7 +128,7 @@ int main(int argc, char* args[])
 				wait = 3;
 				if(cur_pos++ >= n && wait){
 					//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
-					gen_bs_process(20.f, mu, C, n, &t[0], &random_walk[0]);
+					gen_bs_process(20.f, mu, sigma, n, &t[0], &bs_process[0]);
 					cur_pos=0;
 				}
 			}
@@ -133,12 +136,12 @@ int main(int argc, char* args[])
 			clear_screen();
 			
 			//send stuff to renderer
-			draw_line_graph(graph, &t[0], &random_walk[0], cur_pos);
-			rect.y = 100;
-			sprintf(c, "mu: %f", mu);
+			draw_line_graph(graph, &t[0], &bs_process[0], cur_pos);
+			rect.y = graph.y_pos+10;
+			sprintf(c, "μ: %f", mu);
 			draw_solid_text(c, &rect, &white);
 			rect.y += rect.h;
-			sprintf(c, "C:  %f", C);
+			sprintf(c, "σ:  %f", sigma);
 			draw_solid_text(c, &rect, &white);
 			display_renderer();
 		}
