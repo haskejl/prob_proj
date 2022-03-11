@@ -6,12 +6,10 @@
 #include "../include/math_internal.h"
 #include "../include/math_models.h"
 
-int main(int argc, char* args[])
-{
+int main(int argc, char* args[]) {
 	system("clear");
 	printf("Started...\n");
-	if(initialize_gfx() < 0)
-	{
+	if(initialize_gfx() < 0) {
 		printf("Application Failed to Initalize!");
 		return -1;
 	}
@@ -41,7 +39,7 @@ int main(int argc, char* args[])
 
 	// A rectangle & char array for drawing text on the graph
 	SDL_Rect rect;
-	rect.x = graph.x_pos + 10;
+	rect.x = graph.x_pos + 25;
 	rect.y = graph.y_pos + 10;
 	rect.w = 200;
 	rect.h = 25;
@@ -60,12 +58,9 @@ int main(int argc, char* args[])
 	//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
 	gen_bs_process(20.f, mu, sigma, n, &t[0], &bs_process[0]);
 
-	while(!quit)
-	{
-		while(SDL_PollEvent(&event))
-		{
-			switch(event.type)
-			{
+	while(!quit) {
+		while(SDL_PollEvent(&event)) {
+			switch(event.type) {
 				case SDL_QUIT:
 					quit = true;
 					break;
@@ -111,14 +106,14 @@ int main(int argc, char* args[])
 			}
 		}
 
-		if(!pause)
-		{
+		if(!pause) {
 			//do calculations
 			if(mouse_down) {
 				if(mouse_x >= graph.x_pos && mouse_x <= graph.x_pos + graph.width && mouse_y >= graph.y_pos & mouse_y <= graph.y_pos + graph.height) {
 					graph.x_pos += mouse_x - mouse_last_x;
 					graph.y_pos += mouse_y - mouse_last_y;
-					rect.x = graph.x_pos+10;
+					rect.x = graph.x_pos+25;
+					rect.y = graph.y_pos+10;
 					recalc_graph_params(&graph);
 					mouse_last_x = mouse_x;
 					mouse_last_y = mouse_y;
@@ -126,7 +121,7 @@ int main(int argc, char* args[])
 			}
 			if(wait-- <= 0) {
 				wait = 3;
-				if(cur_pos++ >= n && wait){
+				if(cur_pos++ >= n && wait) {
 					//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
 					gen_bs_process(20.f, mu, sigma, n, &t[0], &bs_process[0]);
 					cur_pos=0;
@@ -137,11 +132,7 @@ int main(int argc, char* args[])
 			
 			//send stuff to renderer
 			draw_line_graph(graph, &t[0], &bs_process[0], cur_pos);
-			rect.y = graph.y_pos+10;
-			sprintf(c, "μ: %f", mu);
-			draw_solid_text(c, &rect, &white);
-			rect.y += rect.h;
-			sprintf(c, "σ:  %f", sigma);
+			sprintf(c, "μ: %f    σ: %f", mu, sigma);
 			draw_solid_text(c, &rect, &white);
 			display_renderer();
 		}
