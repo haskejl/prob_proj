@@ -17,7 +17,7 @@ A list of technologies used within the project:
 ***
 Simply compile and run.
 ```
-$ git clone hhttps://github.com/haskejl/prob_proj.git
+$ git clone https://github.com/haskejl/prob_proj.git
 $ cd ./prob_proj
 $ make
 $ ./bin/program
