@@ -54,6 +54,8 @@ int main(int argc, char* args[]) {
 	int wait = 3;
 	float sigma = 0.01;
 	float mu = 0.01;
+	float call_price = bs_call_price(83.7, 70.f, 0.234, 0.0343, 42.f/252.f, 0.f);
+	printf("%f\n", call_price);
 	gen_evenly_spaced_array(0, 50, n, &t[0]);
 	//gen_rand_walk(mu, C, n, &t[0], &random_walk[0]);
 	gen_bs_process(20.f, mu, sigma, n, &t[0], &bs_process[0]);

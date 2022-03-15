@@ -18,3 +18,10 @@ void gen_bs_process(const float s0, const float mu, const float sigma, const uns
         results[i] = results[i-1]*(1 + mu*dt+sigma*gen_norm_dist_rn(0, sd));
     }
 }
+
+float bs_call_price(float S, float E, float sigma, float r, float T, float t) {
+    t = T-t;
+    float d1 = (log(S/E) + (r * pow(sigma,2)/2)*t)/(sigma*sqrt(t));
+    float d2 = d1-sigma*sqrt(t);
+    return S*std_norm_dist_phif(d1,12)-E*pow(M_E, (-r*t))*std_norm_dist_phif(d2,12);
+}

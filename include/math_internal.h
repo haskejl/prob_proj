@@ -8,5 +8,7 @@
 #include "common.h"
 
 void gen_evenly_spaced_array(const float begin, const float end, const unsigned int n, float* results);
+unsigned int factorialuint(const unsigned int x);
+int factorialint(const int x);
 
 #endif

@@ -7,3 +7,21 @@ void gen_evenly_spaced_array(const float begin, const float end, const unsigned 
 		results[i] = inc+results[i-1];
 	}
 }
+
+unsigned int factorialuint(const unsigned int x) {
+  if(x == 0 || x == 1) {
+    return 1;
+  }
+  else {
+    return x*factorialuint(x-1);
+  }
+}
+
+int factorialint(const int x) {
+  if(x == 0 || x == 1) {
+    return 1;
+  }
+  else {
+    return x*factorialint(x-1);
+  }
+}

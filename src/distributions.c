@@ -12,6 +12,16 @@ void gen_norm_dist_pdf(const float mean, const float sd, const int min, const in
     }
 }
 
+float std_norm_dist_phif(const float x, const int n_iters) {
+    float result = 0;
+    for(int i=0; i<n_iters; i++) {
+        result += pow(-1,i)*pow(x,(2*i+1))/(pow(2,i)*factorialint(i)*(2*i+1));
+    }
+    result *= 1/sqrt(2*M_PI);
+    result += 0.5;
+    return result;
+}
+
 float gen_norm_dist_rn(const float mean, const float sd)
 {
     static bool haveSpare = false;
